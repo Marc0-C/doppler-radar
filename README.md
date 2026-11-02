@@ -29,9 +29,9 @@ Speed resolution	≈ 0.5 m/s per bin
 Max measurable speed	≈ 256 m/s (limited by Nyquist)
 Update rate	≈ 150 ms per reading
 
-├── blink.c           # Firmware source
-├── CMakeLists.txt    # Build configuration
-└── blink.uf2         # Prebuilt firmware, ready to flash
+blink.c           # Firmware source
+CMakeLists.txt    # Build configuration
+blink.uf2         # Prebuilt firmware, ready to flash
 
 maxfound: 812.430
 Freq: 195.3 Hz  Speed: 10.02 m/s
