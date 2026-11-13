@@ -14,7 +14,7 @@ float freq_history[AVG_SIZE] = {0};
 int idx = 0;
 
 float32_t adc_buffer[FFT_SIZE]; // store raw adcreadings
-float32_t fft_output[FFT_SIZE]; // store fft output (complex numbers)
+float32_t fft_output[FFT_SIZE]; // store fft output 
 float32_t mag[FFT_SIZE/2];      // store magnitude of fft output
 
 // Band-pass filter (IIR)
@@ -42,7 +42,7 @@ void sample_signal() {
 
 void preprocess() {
     float32_t mean;
-    arm_mean_f32(adc_buffer, FFT_SIZE, &mean);                                  // calculates the average voltage in the buffer
+    arm_mean_f32(adc_buffer, FFT_SIZE, &mean);                                  // calculate the average voltage in the buffer
     arm_offset_f32(adc_buffer, -mean, adc_buffer, FFT_SIZE);                    // remove DC component
 
     for (int i = 0; i < FFT_SIZE; i++) {
@@ -94,7 +94,7 @@ float get_frequency() {
 }
 
 float freq_to_speed(float f) {
-    return f / 19.49f;                                  // Convert frequency to speed in m/s
+    return f / 19.49f;                                  // Convert frequency to speed in km/h
 }
 
 int main() {
@@ -108,7 +108,7 @@ int main() {
         float v = freq_to_speed(f);
 
         if (v > 0.01f) {  // Only print if valid
-            printf("Freq: %.1f Hz  Speed: %.2f m/s\n", f, v);
+            printf("Freq: %.1f Hz  Speed: %.2f km/h\n", f, v);
         } else {
             printf("No movement\n");
         }
