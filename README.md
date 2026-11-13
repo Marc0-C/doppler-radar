@@ -1,5 +1,5 @@
 # doppler-radar
-A homemade Doppler speed radar. A Raspberry Pi Pico samples the IF output of an HB100 microwave motion sensor, runs an FFT using CMSIS-DSP, and converts the dominant Doppler frequency into the speed of a moving target.
+A homemade Doppler speed radar. A Raspberry Pi Pico samples the IF output of an HB100 microwave motion sensor (output amplified using an MCP6002), runs an FFT using CMSIS-DSP, and converts the dominant Doppler frequency into the speed of a moving target.
 
 <img width="714" height="1106" alt="image" src="https://github.com/user-attachments/assets/17793c6e-c855-4c7e-8050-9bbabcc23189" />
 
@@ -9,9 +9,9 @@ A homemade Doppler speed radar. A Raspberry Pi Pico samples the IF output of an 
 
 The HB100 transmits a continuous 10.525 GHz signal. A moving object reflects it back with a frequency shift proportional to its radial speed:
 
-f_doppler = 2 * v * f_tx / c   ->   f_doppler ≈ 19.49 Hz per 1 m/s
+f_doppler = 2 * v * f_tx / c   ->   f_doppler ≈ 19.49 Hz per 1 km/h
 
-The signal chain in firmware:
+The signal chain:
 
 Sample: 1024 samples from the ADC at 10 kHz (about 102 ms per window).
 Remove DC: subtract the mean of the buffer.
@@ -25,13 +25,11 @@ Parameter	Value
 Sample rate	10 kHz (Nyquist 5 kHz)
 FFT size	1024 points
 Frequency resolution	≈ 9.77 Hz per bin
-Speed resolution	≈ 0.5 m/s per bin
-Max measurable speed	≈ 256 m/s (limited by Nyquist)
+Speed resolution	≈ 0.5 km/h per bin
+Max measurable speed	≈ 256 km/h (limited by Nyquist)
 Update rate	≈ 150 ms per reading
 
 blink.c           # Firmware source
 CMakeLists.txt    # Build configuration
 blink.uf2         # Prebuilt firmware, ready to flash
 
-maxfound: 812.430
-Freq: 195.3 Hz  Speed: 10.02 m/s
